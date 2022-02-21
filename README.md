@@ -1,5 +1,5 @@
 # About this repository
-The the reason for forking this repo:
+My goals with forking this repo:
 * completing the required ReTeLab at BME
 * getting to know **Git** and other tools 
 
