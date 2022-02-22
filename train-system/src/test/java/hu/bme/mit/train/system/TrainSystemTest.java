@@ -60,5 +60,13 @@ public class TrainSystemTest {
 		Assert.assertEquals(5, controller.getReferenceSpeed());
 	}
 
+	@Test
+	public void checkLoggerTable(){
+		Assert.assertFalse(controller.hasLogs());
+		user.overrideJoystickPosition(5);
+		controller.followSpeed();
+		Assert.assertTrue(controller.hasLogs());
+	}
+
 	
 }
