@@ -1,12 +1,18 @@
 package hu.bme.mit.train.controller;
 
+import com.google.common.collect.HashBasedTable;
+
 import hu.bme.mit.train.interfaces.TrainController;
+import com.google.common.collect.*;
+import java.time.LocalDateTime;
+
 
 public class TrainControllerImpl implements TrainController {
 
 	private int step = 0;
 	private int referenceSpeed = 0;
 	private int speedLimit = 0;
+	private Table<LocalDateTime, String, Integer> dataTable = HashBasedTable.create();
 
 	@Override
 	public void followSpeed() {
@@ -21,6 +27,7 @@ public class TrainControllerImpl implements TrainController {
 		}
 
 		enforceSpeedLimit();
+		logData();
 	}
 
 	@Override
@@ -44,6 +51,16 @@ public class TrainControllerImpl implements TrainController {
 	@Override
 	public void setJoystickPosition(int joystickPosition) {
 		this.step = joystickPosition;		
+	}
+
+	public Boolean hasLogs(){
+		return !this.dataTable.isEmpty();
+	}
+
+	private void logData(){
+		LocalDateTime currentTime = LocalDateTime.now();
+		dataTable.put(currentTime, "joystickPosition", this.step);
+		dataTable.put(currentTime, "referenceSpeed", this.referenceSpeed);
 	}
 
 }
